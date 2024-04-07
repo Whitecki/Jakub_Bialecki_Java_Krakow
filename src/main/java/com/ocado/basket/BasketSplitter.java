@@ -1,0 +1,50 @@
+package com.ocado.basket;
+
+import java.io.IOException;
+import java.util.*;
+
+public class BasketSplitter {
+
+    private final Map<Product, Set<Supplier>> productSuppliers;
+
+    public BasketSplitter(String configFilePath) {
+        try {
+            ProductSupplierLoader productSupplierLoader = new ProductSupplierLoader(configFilePath);
+            this.productSuppliers = productSupplierLoader.config();
+        } catch (RuntimeException e) {
+            throw new IllegalStateException("Error loading configuration: " + configFilePath, e);
+        }
+    }
+
+    public Map<String, List<String>> split(List<String> items) throws ItemNotFoundException {
+        if (items == null || items.isEmpty()) {
+            throw new IllegalArgumentException("The list of items cannot be null or empty.");
+        }
+        try {
+            Set<Supplier> allSuppliers = aggregateSuppliersForItems(items);
+            List<Supplier> supplierList = new ArrayList<>(allSuppliers);
+
+            SplittingAlgorithm splittingAlgorithm = new SplittingAlgorithm();
+            return splittingAlgorithm.findOptimalSupplierAssignment(items, supplierList, productSuppliers);
+        } catch (Exception e) {
+            throw new RuntimeException("Error processing the item list.", e);
+        } catch (ItemNotFoundException e) {
+            throw new ItemNotFoundException(e.getMessage());
+        }
+    }
+
+    private Set<Supplier> aggregateSuppliersForItems(List<String> items) throws ItemNotFoundException {
+        Set<Supplier> suppliers = new HashSet<>();
+        for (String item : items) {
+            Product product = new Product(item);
+            Set<Supplier> availableSuppliers = productSuppliers.get(product);
+
+            if (availableSuppliers == null || availableSuppliers.isEmpty()) {
+                throw new ItemNotFoundException("Item not found in product suppliers: " + item);
+            }
+
+            suppliers.addAll(availableSuppliers);
+        }
+        return suppliers;
+    }
+}
