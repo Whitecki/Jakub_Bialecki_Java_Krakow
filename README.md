@@ -5,9 +5,9 @@
 <p><strong>Klasy Główne:</strong><br />
 <code>BasketSplitter</code>: Klasa główna odpowiedzialna za dzielenie listy przedmiotów na grupy według dostawców zgodnie z załadowaną konfiguracją.</p>
 <p><strong>Klasy Pomocnicze:</strong><br />
-<code>ProductSupplierLoader</code>: Wczytuje konfigurację z pliku JSON.</p>
+<code>ProductSupplierLoader</code>: Wczytuje konfigurację z pliku JSON, mapując produkty na ich dostawców..</p>
 <p><strong>Klasy Algorytmiczne:</strong><br />
-<code>DeliveryCapabilityChecker</code>, <code>SplittingAlgorithm</code>, <code>SupplierProductAssigner</code>.</p>
+<code>DeliveryCapabilityChecker</code>: Analizuje i określa najbardziej zdolnego dostawcę do dostarczenia wszystkich przedmiotów, <code>SplittingAlgorithm</code>: Zawiera algorytm do znajdowania optymalnego przydziału dostawców dla danego zestawu przedmiotów., <code>SupplierProductAssigner</code>:Przydziela produkty dostawcom z preferencją dla konkretnego dostawcy.</p>
 <p><strong>Klasa Rekordu:</strong><br />
 <code>Product</code>, <code>Supplier</code>, <code>SupplierDeliveryInfo</code> (wewnątrz <code>DeliveryCapabilityChecker</code>).</p>
 <p><strong>Wyjątek:</strong><br />
