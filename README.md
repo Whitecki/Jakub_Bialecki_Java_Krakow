@@ -42,7 +42,7 @@ Umieść fat-JAR w folderze <code>libs</code> Twojego projektu i dodaj w <code>b
 
 <h2>Obsługa Wyjątków</h2>
 <ul>
-  <li><code>ProductSupplierLoader</code>: Rzuca <code>RuntimeException</code>.</li>
-  <li>Konstruktor <code>BasketSplitter</code>: Rzuca <code>IllegalStateException</code>.</li>
-  <li>Metoda <code>Split</code> w <code>BasketSplitter</code>: Rzuca <code>IllegalArgumentException</code>, <code>RuntimeException</code> i <code>ItemNotFoundException</code>.</li>
+  <li><code>ProductSupplierLoader</code>: Rzuca <code>RuntimeException</code>, gdy nie znajdzie pliku konfiguracyjnego lub wystąpią inne błędy odczytu pliku.</li>
+  <li>Konstruktor <code>BasketSplitter</code>: Rzuca <code>IllegalStateException</code>, jeśli wystąpi problem z załadowaniem konfiguracji przez <code>ProductSupplierLoader</code>.</li>
+  <li>Metoda <code>Split</code> w <code>BasketSplitter</code>: Rzuca <code>IllegalArgumentException</code>, gdy lista przedmiotów jest pusta lub null oraz <code>RuntimeException</code> i <code>ItemNotFoundException</code>w przypadku ogólnych błędów przetwarzania lub braku przedmiotu w konfiguracji.</li>
 </ul>
