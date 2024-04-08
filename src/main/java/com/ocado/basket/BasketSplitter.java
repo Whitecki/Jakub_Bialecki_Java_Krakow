@@ -1,12 +1,13 @@
 package com.ocado.basket;
 
-import java.io.IOException;
 import java.util.*;
 
 public class BasketSplitter {
 
+    // Map of products to their respective suppliers.
     private final Map<Product, Set<Supplier>> productSuppliers;
 
+    // Constructor that loads product suppliers configuration from a file.
     public BasketSplitter(String configFilePath) {
         try {
             ProductSupplierLoader productSupplierLoader = new ProductSupplierLoader(configFilePath);
@@ -16,6 +17,7 @@ public class BasketSplitter {
         }
     }
 
+    // Splits items into groups based on the best matching suppliers.
     public Map<String, List<String>> split(List<String> items) throws ItemNotFoundException {
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("The list of items cannot be null or empty.");
@@ -33,6 +35,7 @@ public class BasketSplitter {
         }
     }
 
+    // Aggregates suppliers for the given list of items.
     private Set<Supplier> aggregateSuppliersForItems(List<String> items) throws ItemNotFoundException {
         Set<Supplier> suppliers = new HashSet<>();
         for (String item : items) {

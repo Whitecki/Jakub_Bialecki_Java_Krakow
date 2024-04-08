@@ -28,20 +28,21 @@ public class SupplierProductAssigner {
 
         // Initialize the list of products for each supplier
         for (Supplier supplier : suppliers) {
-            assignment.put(supplier.getName(), new ArrayList<>());
+            assignment.put(supplier.name(), new ArrayList<>());
         }
 
         for (String productName : productNames) {
             Product product = new Product(productName);
             Set<Supplier> availableSuppliers = productSuppliersMap.getOrDefault(product, Collections.emptySet());
+            availableSuppliers.retainAll(suppliers);
 
             // Giving preference to the chosen supplier
             if (availableSuppliers.contains(preferredSupplier)) {
-                assignment.get(preferredSupplier.getName()).add(product.getName());
+                assignment.get(preferredSupplier.name()).add(product.name());
             } else {
                 // Assigning the product to another available supplier
                 for (Supplier supplier : availableSuppliers) {
-                    assignment.get(supplier.getName()).add(product.getName());
+                    assignment.get(supplier.name()).add(product.name());
                     break; // Assign to the first available supplier
                 }
             }

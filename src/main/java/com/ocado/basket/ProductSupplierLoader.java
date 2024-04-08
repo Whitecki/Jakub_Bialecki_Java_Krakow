@@ -2,6 +2,8 @@ package com.ocado.basket;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -34,6 +36,10 @@ class ProductSupplierLoader {
 
         try (FileReader fileReader = new FileReader(filePath)) {
             return gson.fromJson(fileReader, type);
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException("Nie znaleziono pliku konfiguracyjnego: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Wystąpił problem podczas odczytu pliku konfiguracyjnego: " + filePath, e);
         }
     }
 

@@ -12,9 +12,9 @@ public class DeliveryGroupJsonCreator {
         Map<String, List<String>> deliveryGroups = new HashMap<>();
 
         for (Map.Entry<Supplier, List<Product>> entry : supplierProductMap.entrySet()) {
-            String deliveryMethod = entry.getKey().getName();
+            String deliveryMethod = entry.getKey().name();
             List<String> productNames = entry.getValue().stream()
-                    .map(Product::getName)
+                    .map(Product::name)
                     .collect(Collectors.toList());
 
             if (!deliveryGroups.containsKey(deliveryMethod)) {

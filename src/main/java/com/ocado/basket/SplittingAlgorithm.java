@@ -19,10 +19,10 @@ public class SplittingAlgorithm {
                 List<Supplier> currentSuppliers = getSuppliersByCombination(suppliers, combination);
 
                 DeliveryCapabilityChecker.SupplierDeliveryInfo deliveryInfo = DeliveryCapabilityChecker.findMostCapableSupplier(items, currentSuppliers, productSuppliersMap);
-                if (deliveryInfo.getIndex() > -1 && deliveryInfo.getMaxDeliveries() > maximumProductsDelivered) {
-                    maximumProductsDelivered = deliveryInfo.getMaxDeliveries();
-                    optimalSuppliers = currentSuppliers;
-                    optimalSupplierIndex = deliveryInfo.getIndex();
+                if (deliveryInfo.index() > -1 && deliveryInfo.maxDeliveries() > maximumProductsDelivered) {
+                    maximumProductsDelivered = deliveryInfo.maxDeliveries();
+                    optimalSuppliers = deliveryInfo.suppliers();
+                    optimalSupplierIndex = deliveryInfo.index();
                 }
             }
         }
